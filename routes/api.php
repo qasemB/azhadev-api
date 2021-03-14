@@ -22,4 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/all-articles' , [ArticleController::class , 'getAllArticles'])->middleware('checkToken');
 
+Route::post('/all-articles/{catId}' , [ArticleController::class , 'getGroupOfArticles'])->middleware('checkToken');
+
+Route::post('/article/{articleId}' , [ArticleController::class , 'getSingleArticle'])->middleware('checkToken');
+
 Route::post('/all-categories' , [CategoryController::class , 'getAllCtegories'])->middleware('checkToken');
