@@ -10,7 +10,7 @@ class Article extends Model
     use HasFactory;
 
     public function writer(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->select('firstname' , 'lastname');
     }
 
     public function comments(){

@@ -17,6 +17,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->bigInteger('category_id')->unsigned()->index();
             $table->bigInteger('writer_id');
+            $table->text('writer_token');
             $table->string('writer_name');
             $table->string('h_title');
             $table->string('top_title');
