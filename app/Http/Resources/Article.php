@@ -37,6 +37,7 @@ class Article extends JsonResource
             'update_at' => $this->update_at,
             'comments' => CommentResource::collection($this->comments),
             'writer' => $this->writer,
+            'category' => $this->category,
         ];
     }
 }

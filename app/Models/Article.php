@@ -16,4 +16,8 @@ class Article extends Model
     public function comments(){
         return $this->hasMany(Comment::class)->where('is_active' , 1);
     }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

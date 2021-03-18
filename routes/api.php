@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
 Route::post('/register' , [UserController::class , 'register'])->middleware('checkToken');
+Route::post('/login' , [UserController::class , 'login'])->middleware('checkToken');
+Route::post('/logout' , [UserController::class , 'logout']);
+
+Route::group(['middleware' => ['auth:sanctum']] , function(){
+    Route::post('/check-login' , [UserController::class , 'checkLogin']);
+    Route::post('/get-user' , function(){return Auth::user();});
+    Route::post('/admin/store-category' , [CategoryController::class , 'store'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/delete-category' , [CategoryController::class , 'delete'])->middleware(['checkAdmin' , 'checkToken']);
+});
+
 
 Route::post('/all-articles' , [ArticleController::class , 'getAllArticles'])->middleware('checkToken');
 

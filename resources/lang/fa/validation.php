@@ -232,5 +232,6 @@ return [
         'pass'                          => 'رمز عبور',
         'TokenTyped'                          => 'کد تایید',
         'firstname'                          => 'نام',
+        'icon' => 'آیکون فونت'
     ],
 ];
