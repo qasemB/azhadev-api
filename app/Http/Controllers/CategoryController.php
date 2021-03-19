@@ -51,7 +51,6 @@ class CategoryController extends Controller
     public function delete(Request $request){
         try {
             Category::where('id' , $request->id)->delete();
-            Article::where('category_id' , $request->id)->delete();
             return response()->json([
                 'status' => 200,
                 'message' => 'دسته با موفقیت حذف شد'

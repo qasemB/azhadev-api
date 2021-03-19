@@ -36,6 +36,9 @@ Route::group(['middleware' => ['auth:sanctum']] , function(){
     Route::post('/admin/delete-category' , [CategoryController::class , 'delete'])->middleware(['checkAdmin' , 'checkToken']);
     Route::post('/admin/edit-category' , [CategoryController::class , 'edit'])->middleware(['checkAdmin' , 'checkToken']);
     Route::post('/admin/store-article' , [ArticleController::class , 'store'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/active-article' , [ArticleController::class , 'active'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/delete-article' , [ArticleController::class , 'delete'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/edit-article' , [ArticleController::class , 'edit'])->middleware(['checkAdmin' , 'checkToken']);
 });
 
 
