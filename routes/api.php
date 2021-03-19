@@ -31,8 +31,11 @@ Route::post('/logout' , [UserController::class , 'logout']);
 Route::group(['middleware' => ['auth:sanctum']] , function(){
     Route::post('/check-login' , [UserController::class , 'checkLogin']);
     Route::post('/get-user' , function(){return Auth::user();});
+    Route::post('/admin/all-articles' , [ArticleController::class , 'getAdminAllArticles'])->middleware('checkToken');
     Route::post('/admin/store-category' , [CategoryController::class , 'store'])->middleware(['checkAdmin' , 'checkToken']);
     Route::post('/admin/delete-category' , [CategoryController::class , 'delete'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/edit-category' , [CategoryController::class , 'edit'])->middleware(['checkAdmin' , 'checkToken']);
+    Route::post('/admin/store-article' , [ArticleController::class , 'store'])->middleware(['checkAdmin' , 'checkToken']);
 });
 
 

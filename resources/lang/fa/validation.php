@@ -232,6 +232,7 @@ return [
         'pass'                          => 'رمز عبور',
         'TokenTyped'                          => 'کد تایید',
         'firstname'                          => 'نام',
-        'icon' => 'آیکون فونت'
+        'icon' => 'آیکون فونت',
+        'category_id' => 'دسته بندی'
     ],
 ];
