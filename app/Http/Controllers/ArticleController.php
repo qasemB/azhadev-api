@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\Article as ResourcesArticle;
 use App\Http\Resources\ArticleCollection;
 use App\Models\Article;
+use App\Models\Keyword;
 use App\Models\Token;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,15 @@ class ArticleController extends Controller
             $article->alt_image = $request->alt_image;
             $article->keywords = $request->keywords;
             $article->save();
+
+            $keywords = explode(',' , $request->keywords);
+            foreach ($keywords as $k) {
+                Keyword::create([
+                    'keyword' => $k,
+                    'for' => $article->id,
+                ]);
+            }
+
             return response()->json([
                 'status' => 200,
                 'message' => 'دسته با موفقیت ایجاد شد',
@@ -95,6 +105,7 @@ class ArticleController extends Controller
     public function delete(Request $request){
         try {
             Article::where('id' , $request->id)->delete();
+            Keyword::where('for' , $request->id)->delete();
             return response()->json([
                 'status' => 200,
                 'message' => 'مقاله با موفقیت حذف شد'

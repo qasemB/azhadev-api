@@ -10,6 +10,9 @@ class Comment extends Model
     use HasFactory;
 
     public function user(){
-        return $this->belongsTo(User::class)->select('firstname' , 'lastname');
+        return $this->belongsTo(User::class)->select('firstname' , 'lastname','id');
+    }
+    public function article(){
+        return $this->belongsTo(Article::class);
     }
 }

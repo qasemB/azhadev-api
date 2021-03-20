@@ -110,6 +110,25 @@ class UserController extends Controller
         return response(Auth::check());
     }
 
+    public function getAllUsers(){
+        return User::orderBy('id' , 'DESC')->get();
+    }
+
+    public function delete(Request $request){
+        try {
+            User::where('id' , $request->id)->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'کاربر با موفقیت حذف شد',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th,
+            ]);
+        }
+    }
+
 
 
 
