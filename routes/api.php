@@ -51,12 +51,9 @@ Route::group(['middleware' => ['auth:sanctum']] , function(){
 
 
 Route::post('/all-articles' , [ArticleController::class , 'getAllArticles'])->middleware('checkToken');
-
 Route::post('/all-articles/{catId}' , [ArticleController::class , 'getGroupOfArticles'])->middleware('checkToken');
-
 Route::post('/article/{articleId}' , [ArticleController::class , 'getSingleArticle'])->middleware('checkToken');
-
 Route::post('/all-categories' , [CategoryController::class , 'getAllCtegories'])->middleware('checkToken');
-
 Route::post('/get-things' , [OthersControllers::class , 'getThings'])->middleware('checkToken');
 Route::post('/get-keywords' , [OthersControllers::class , 'getKeywords'])->middleware('checkToken');
+Route::post('/get-abilities' , [OthersControllers::class , 'getAbilities'])->middleware('checkToken');

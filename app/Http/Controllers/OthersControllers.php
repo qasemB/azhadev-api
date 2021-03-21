@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ability;
 use App\Models\Keyword;
 use App\Models\Thing;
 use Illuminate\Http\Request;
@@ -18,4 +19,10 @@ class OthersControllers extends Controller
     public function getKeywords(){
         return  Keyword::all();
     }
+
+    public function getAbilities(){
+        return  Ability::where('is_active' , 1)->orderBy('num' , 'ASC')->get();
+    }
+
+
 }
