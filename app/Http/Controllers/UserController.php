@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -98,6 +99,44 @@ class UserController extends Controller
                 'status' => 200,
                 'message' => 'خروج با موفقیت انجام شد',
             ]) ;
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th,
+            ]) ;
+        }
+    }
+
+    public function forgetPassword(Request $request){
+        $validator = Validator::make($request->all() , [
+            'email' => 'required|email',
+        ]);
+        try {
+            if($validator->fails()){
+                return response()->json([
+                    'status' => 422,
+                    'message' => $validator->errors(),
+                ]);
+            }
+            $user = User::where('email' , $request->email)->first();
+            if ($user) {
+                $newPass = Str::random(8);
+                $user->password = Hash::make($newPass);
+                $user->save();
+                $sent = Mail::raw("پسورد جددید شما: $newPass" , function($message)use($request){
+                    $message->to($request->email)->subject('تغییر پسورد');
+                });
+                return response()->json([
+                    'status' => 200,
+                    'sent' => $sent,
+                    'message' => 'پسورد با موفقیت تغییر کرد - به ایمیل خود مراجعه کنید',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => 404,
+                    'message' => 'همچین ایمیلی در مجموعه وجود ندارد',
+                ]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,

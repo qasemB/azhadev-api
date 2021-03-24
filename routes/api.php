@@ -29,6 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register' , [UserController::class , 'register'])->middleware('checkToken');
 Route::post('/login' , [UserController::class , 'login'])->middleware('checkToken');
 Route::post('/logout' , [UserController::class , 'logout']);
+Route::post('/forget-password' , [UserController::class , 'forgetPassword'])->middleware('checkToken');;
 
 Route::group(['middleware' => ['auth:sanctum']] , function(){
     Route::post('/check-login' , [UserController::class , 'checkLogin']);
